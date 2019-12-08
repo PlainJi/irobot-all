@@ -1,0 +1,34 @@
+<launch>
+   <machine name="jetson-nano" address="192.168.0.22" user="dlinano" password="" env-loader="/opt/ros/melodic/env.sh"/>
+
+
+   <node machine="jetson-nano" name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen">
+    <param name="image_width" value="1280"/>
+    <param name="image_height" value="720"/>
+    <param name="format" value="mjpeg"/>
+   </node>
+
+   <node machine="jetson-nano" pkg="odom" name="odom" type="node" output="screen"/>
+
+   <node machine="jetson-nano" name="urg_node" pkg="urg_node" type="urg_node" output="screen">
+    <param name="ip_address" value=""/>
+    <param name="serial_port" value="/dev/ttyACM0"/>
+    <param name="serial_baud" value="115200"/>
+    <param name="frame_id" value="laser"/>
+    <param name="calibrate_time" value="true"/>
+    <param name="publish_intensity" value="false"/>
+    <param name="publish_multiecho" value="false"/>
+    <param name="angle_min" value="-1.5707963"/>
+    <param name="angle_max" value="1.5707963"/>
+  </node>
+
+  <!--static tf transform from base to laser-->
+  <node name="base_to_laser" pkg="tf" type="static_transform_publisher" args="-0.02 0.0 0.05 0.0 0.0 0.0 base_link laser 100"/>
+
+  <!-- runing Gmapping -->
+  <include file="$(find all)/launch/my_gmapping.launch"/>
+
+  <!-- open rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find all)/rviz/map.rviz" />
+
+</launch>
