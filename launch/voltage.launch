@@ -1,6 +1,0 @@
-<launch>
-   <machine name="jetson-nano" address="192.168.0.23" user="dlinano" password="" env-loader="/opt/ros/melodic/env.sh"/>
-
-
-   <node machine="jetson-nano" name="odom" pkg="odom" type="node" output="screen"/>
-</launch>
