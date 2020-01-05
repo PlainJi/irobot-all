@@ -3,22 +3,8 @@
 
    <include file="$(find odom)/launch/odom.launch"/>
 
-   <node machine="jetson-nano" name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen">
-    <param name="image_width" value="1280"/>
-    <param name="image_height" value="720"/>
-    <param name="format" value="mjpeg"/>
-   </node>
+   <include file="$(find usb_cam)/launch/usb_cam-test.launch"/>
 
-   <node machine="jetson-nano" name="urg_node" pkg="urg_node" type="urg_node" output="screen">
-    <param name="ip_address" value=""/>
-    <param name="serial_port" value="/dev/ttyACM0"/>
-    <param name="serial_baud" value="115200"/>
-    <param name="frame_id" value="laser"/>
-    <param name="calibrate_time" value="true"/>
-    <param name="publish_intensity" value="false"/>
-    <param name="publish_multiecho" value="false"/>
-    <param name="angle_min" value="-1.5707963"/>
-    <param name="angle_max" value="1.5707963"/>
-  </node>
+   <include file="$(find urg_node)/launch/urg_lidar.launch"/>
 
 </launch>
