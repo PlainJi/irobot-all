@@ -1,5 +1,5 @@
 <launch>
-   <machine name="jetson-nano" address="192.168.0.22" user="dlinano" password="" env-loader="/opt/ros/melodic/env.sh"/>
+   <machine name="jetson-nano" address="192.168.1.5" user="dlinano" password="" env-loader="/opt/ros/melodic/env.sh"/>
 
 
    <node machine="jetson-nano" name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen">
